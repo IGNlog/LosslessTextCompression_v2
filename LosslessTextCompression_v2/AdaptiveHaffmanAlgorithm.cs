@@ -44,7 +44,7 @@ namespace LosslessTextCompression_v2
             b = buf;
         }
 
-        public void IncWeight(Node root)
+        public static void IncWeight(Node root)
         {
             root.Frequency++;
             if (root.Parent!=null)
@@ -53,7 +53,7 @@ namespace LosslessTextCompression_v2
             }
         }
 
-        void CheckChilds(Node parent)
+        public static void CheckChilds(Node parent)
         {
             if (parent.LeftChild.Frequency > parent.RightChild.Frequency)
             {
@@ -61,7 +61,7 @@ namespace LosslessTextCompression_v2
             }
         }
 
-        public void SwitchNodes(Node n1, Node n2)
+        public static void SwitchNodes(Node n1, Node n2)
         {
             if (n1.Parent.LeftChild == n1)
             {
@@ -85,7 +85,7 @@ namespace LosslessTextCompression_v2
             CheckChilds(n1.Parent);
         }
 
-        public void Recount(Node escp)
+        public static void Recount(Node escp)
         {
             if (escp != null)
             {
@@ -94,7 +94,7 @@ namespace LosslessTextCompression_v2
             }
         }
 
-        public List<Node> SortTree(List<Node> tree)
+        public static List<Node> SortTree(List<Node> tree)
         {
             bool n = false;
             int ind = 0;
@@ -118,7 +118,7 @@ namespace LosslessTextCompression_v2
             return tree;
         }
 
-        public List<bool> GetCode(Node n, List<bool> code)
+        public static List<bool> GetCode(Node n, List<bool> code)
         {
             if (n.Parent == null)
                 return code;
@@ -135,11 +135,11 @@ namespace LosslessTextCompression_v2
             return code;
         }
 
-        public void OutCode(List<bool> code)
+        public static void OutCode(List<bool> code)
         {
             for (int i = code.Count - 1; i > -1; i--)
             {
-                Console.Write(code[i]);
+                Console.WriteLine(code[i]);
             }
         }
     }

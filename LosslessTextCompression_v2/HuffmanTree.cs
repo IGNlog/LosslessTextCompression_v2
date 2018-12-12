@@ -14,6 +14,7 @@ namespace LosslessTextCompression_v2
         private List<NodeHT> nodes = new List<NodeHT>();
         public NodeHT Root { get; set; }
         public FrequencyDictionary Frequencies = new FrequencyDictionary();
+        public Dictionary<string, List<bool>> CodeTable = new Dictionary<string, List<bool>>();
 
         public HuffmanTree()
         {
@@ -27,6 +28,20 @@ namespace LosslessTextCompression_v2
             Frequencies = new FrequencyDictionary();
             Frequencies = frequencyDictionary;
             BuildTree(Frequencies);
+            var startTime = System.Diagnostics.Stopwatch.StartNew();
+
+            BuildCodeTable(Frequencies);
+
+            startTime.Stop();
+            var resultTime = startTime.Elapsed;
+
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+                    resultTime.Hours,
+                    resultTime.Minutes,
+                    resultTime.Seconds,
+                    resultTime.Milliseconds);
+            Console.WriteLine("Build code table:  " + elapsedTime);
+            //BuildCodeTable(Frequencies);
         }
 
         //public void Build(string[] source)
@@ -74,6 +89,16 @@ namespace LosslessTextCompression_v2
         //    }
 
         //}
+
+        public void BuildCodeTable(FrequencyDictionary frequencyDictionary)
+        {
+            CodeTable = new Dictionary<string, List<bool>>();
+            foreach (var word in frequencyDictionary.Dictionary)
+            {
+                List<bool> encodedWord = Root.Traverse(word.Key, new List<bool>());
+                CodeTable.Add(word.Key, encodedWord);
+            }
+        }
 
         public void BuildTree(FrequencyDictionary frequencyDictionary)
         {
@@ -149,7 +174,10 @@ namespace LosslessTextCompression_v2
                     }
                     indexBegin = indexEnd;
 
-                    List<bool> encodedSymbol = this.Root.Traverse(word, new List<bool>());
+                    //List<bool> encodedSymbol = this.Root.Traverse(word, new List<bool>());
+                    //encodedSource.AddRange(encodedSymbol);
+
+                    List<bool> encodedSymbol = CodeTable[word];
                     encodedSource.AddRange(encodedSymbol);
                 }
             }

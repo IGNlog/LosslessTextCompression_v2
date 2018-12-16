@@ -55,5 +55,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HuffmanAdaptiveCode\HuffmanAdaptiveCode.csproj">
+      <Project>{2dc9ad02-2f0b-40ad-827d-421f0ac12221}</Project>
+      <Name>HuffmanAdaptiveCode</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

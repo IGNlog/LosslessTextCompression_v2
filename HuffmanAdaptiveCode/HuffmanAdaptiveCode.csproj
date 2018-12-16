@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B690633-E0B3-4B63-817D-D48670CE897C}</ProjectGuid>
+    <ProjectGuid>{2DC9AD02-2F0B-40AD-827D-421F0AC12221}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdaptiveHuffmanAlgorithm</RootNamespace>
-    <AssemblyName>AdaptiveHuffmanAlgorithm</AssemblyName>
+    <RootNamespace>HuffmanAdaptiveCode</RootNamespace>
+    <AssemblyName>HuffmanAdaptiveCode</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,10 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HuffmanAdp.cs" />
+    <Compile Include="HuffmanAdaptiveTree.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VectorBits.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

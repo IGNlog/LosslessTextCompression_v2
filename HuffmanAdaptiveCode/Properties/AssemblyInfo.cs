@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("AdaptiveHuffmanCode")]
+[assembly: AssemblyTitle("HuffmanAdaptiveCode")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AdaptiveHuffmanCode")]
+[assembly: AssemblyProduct("HuffmanAdaptiveCode")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("2b690633-e0b3-4b63-817d-d48670ce897c")]
+[assembly: Guid("2dc9ad02-2f0b-40ad-827d-421f0ac12221")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

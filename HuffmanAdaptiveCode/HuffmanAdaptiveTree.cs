@@ -14,13 +14,15 @@ namespace HuffmanAdaptiveCode
         private static readonly byte[] maskForDecode = { 0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1 };
         public Node Root { get; private set; }
 
-        private Node _nyt; // "not yet transfered"
+        private Node _nyt; 
         private List<Node> _nodes;
         private int _nextNum;
+        public Dictionary<string, Node> dictionaryNodes;
 
         public HuffmanAdaptiveTree()
         {
             Reset();
+            dictionaryNodes = new Dictionary<string, Node>();
         }
 
         public void Reset()
@@ -31,6 +33,50 @@ namespace HuffmanAdaptiveCode
             _nodes.Add(Root);
             //_nodes[Root.Number] = Root;
             _nextNum = 1;
+        }
+
+        public List<bool> GetNYTCode()
+        {
+            List<bool> code = new List<bool>();
+            Node node = _nyt;
+            Node prevNode = _nyt;
+            while(node!=Root)
+            {
+                node = node.Parent;
+                if(node?.Right==prevNode)
+                {
+                    code.Add(true);
+                }
+                if(node?.Left==prevNode)
+                {
+                    code.Add(false);
+                }
+                prevNode = node;
+            }
+            code?.Reverse();
+            return code;
+        }
+
+        public List<bool> GetCode(Node nodeWord)
+        {
+            List<bool> code = new List<bool>();
+            Node node = nodeWord;
+            Node prevNode =nodeWord;
+            while (node != Root)
+            {
+                node = node.Parent;
+                if (node?.Right == prevNode)
+                {
+                    code.Add(true);
+                }
+                if (node?.Left == prevNode)
+                {
+                    code.Add(false);
+                }
+                prevNode = node;
+            }
+            code?.Reverse();
+            return code;
         }
 
         public string Encode(string[] text)
@@ -45,18 +91,24 @@ namespace HuffmanAdaptiveCode
 
         public List<bool> Encode(string word)
         {
-            Node node = Root.FindOrDefault(word);
+            //Node node = Root.FindOrDefault(word);
+            Node node = null;
+            if(dictionaryNodes.ContainsKey(word))
+                node = dictionaryNodes[word];
 
             List<bool> code = new List<bool>();
 
             if (node != null)
             {
-                code = Root.GetCode(node);
+                //code = Root.GetCode(node);
+                code = GetCode(node);
                 node.Weight++;
             }
             else
             {
-                code = Root.GetNYTCode(code);
+
+                //code = Root.GetNYTCode(code);
+                code = GetNYTCode();
                 if(code==null)
                 {
                     code = new List<bool>();
@@ -91,6 +143,7 @@ namespace HuffmanAdaptiveCode
                 }
 
                 node = AddToNYT(word);
+                dictionaryNodes.Add(word, node);
             }
 
             UpdateAll(node.Parent);

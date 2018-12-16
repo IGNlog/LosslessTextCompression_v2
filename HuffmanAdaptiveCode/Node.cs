@@ -145,25 +145,8 @@ namespace HuffmanAdaptiveCode
             }
         }
 
-        //public List<bool> GetNYTCode(List<bool> code)
-        //{
-        //    if (IsNYT)
-        //        return code;
-
-        //    if (Left == null && Right == null)
-        //        return null;
-
-        //    List<bool> result = Left.GetNYTCode(code.Add(false));
-        //    if (result != null)
-        //        return result;
-
-        //    return Right.GetNYTCode(code + "1");
-        //}
-
-
         public List<bool> GetCode(Node searched)
         {
-            //List<bool> code = null;
             List<bool> code = new List<bool>();
             return GetCode(searched, code);
         }

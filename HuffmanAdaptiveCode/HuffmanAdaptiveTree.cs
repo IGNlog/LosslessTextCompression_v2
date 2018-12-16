@@ -106,7 +106,6 @@ namespace HuffmanAdaptiveCode
             }
             else
             {
-
                 //code = Root.GetNYTCode(code);
                 code = GetNYTCode();
                 if(code==null)
@@ -391,7 +390,9 @@ namespace HuffmanAdaptiveCode
             UpdateAll(nodeFirsIter.Parent);
             //пишим декодированое слово в файл
             fileWrite.Write(wordDecode);
-            
+
+            dictionaryNodes.Add(wordDecode, nodeFirsIter);
+
             //пока не дойдём до конца последовательности битов
             while (index < endBitArr)
             {
@@ -409,10 +410,13 @@ namespace HuffmanAdaptiveCode
                     word = GetWordFromBitArray(index, lenWord, bits);
                     index += 8 * lenWord;
                     node = AddToNYT(word);
+
+                    dictionaryNodes.Add(word, node);
                 }
                 else
                 {
-                    node = Root.FindOrDefault(word);
+                    //node = Root.FindOrDefault(word);
+                    node = dictionaryNodes[word];
                     node.Weight++;
                 }
 

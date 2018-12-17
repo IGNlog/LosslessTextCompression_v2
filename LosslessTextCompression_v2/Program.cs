@@ -13,6 +13,47 @@ namespace LosslessTextCompression_v2
 {
     class Program
     {
+        //static void Main(string[] args)
+        //{
+        //    string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text";
+        //    string fileNameText = path + "\\input.txt";
+        //    string fileNameDictionary = path + "\\dicry.txt";
+        //    string fileNameEncodeText = path + "\\encodetext.bin";
+        //    string fileNameDecodeText = path + "\\decodetext.txt";
+
+
+        //    var startTime = System.Diagnostics.Stopwatch.StartNew();
+        //    var treeHuffmanAdaptive = new HuffmanAdaptiveTree();
+        //    treeHuffmanAdaptive.Encode(fileNameText, fileNameEncodeText);
+        //    startTime.Stop();
+        //    var resultTime = startTime.Elapsed;
+
+        //    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+        //            resultTime.Hours,
+        //            resultTime.Minutes,
+        //            resultTime.Seconds,
+        //            resultTime.Milliseconds);
+
+        //    Console.WriteLine("Adaptive encode:  " + elapsedTime);
+
+        //    treeHuffmanAdaptive.Reset();
+        //    treeHuffmanAdaptive = null;
+        //    HuffmanAdaptiveTree treeHuffmanAdaptive2 = new HuffmanAdaptiveTree();
+        //    startTime = System.Diagnostics.Stopwatch.StartNew();
+        //    treeHuffmanAdaptive2.Decode(fileNameEncodeText, fileNameDecodeText);
+
+        //    startTime.Stop();
+        //    resultTime = startTime.Elapsed;
+
+        //    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+        //            resultTime.Hours,
+        //            resultTime.Minutes,
+        //            resultTime.Seconds,
+        //            resultTime.Milliseconds);
+
+        //    Console.WriteLine("Adaptive decoded:  " + elapsedTime);
+        //}
+
         static void Main(string[] args)
         {
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text";
@@ -20,24 +61,15 @@ namespace LosslessTextCompression_v2
             string fileNameDictionary = path + "\\dicry.txt";
             string fileNameEncodeText = path + "\\encodetext.bin";
             string fileNameDecodeText = path + "\\decodetext.txt";
-            
+            FrequencyDictionary frequencyDictionary = new FrequencyDictionary(fileNameText);
 
-            //var startTime = System.Diagnostics.Stopwatch.StartNew();
 
-            //startTime.Stop();
-            //var resultTime = startTime.Elapsed;
-
-            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-            //        resultTime.Hours,
-            //        resultTime.Minutes,
-            //        resultTime.Seconds,
-            //        resultTime.Milliseconds);
-            //Console.WriteLine("Tree build:  "+elapsedTime);
-
-            var treeHuffmanAdaptive = new HuffmanAdaptiveTree();
+            frequencyDictionary.WriteDictionary(fileNameDictionary);
 
             var startTime = System.Diagnostics.Stopwatch.StartNew();
-            treeHuffmanAdaptive.Encode(fileNameText, fileNameEncodeText);
+
+            HuffmanTree huffmanTree = new HuffmanTree(frequencyDictionary);
+
             startTime.Stop();
             var resultTime = startTime.Elapsed;
 
@@ -46,14 +78,26 @@ namespace LosslessTextCompression_v2
                     resultTime.Minutes,
                     resultTime.Seconds,
                     resultTime.Milliseconds);
+            //Console.WriteLine("Tree build:  " + elapsedTime);
 
-            Console.WriteLine("Adaptive encode:  " + elapsedTime);
-
-            treeHuffmanAdaptive.Reset();
-            treeHuffmanAdaptive = null;
-            HuffmanAdaptiveTree treeHuffmanAdaptive2 = new HuffmanAdaptiveTree();
             startTime = System.Diagnostics.Stopwatch.StartNew();
-            treeHuffmanAdaptive2.Decode(fileNameEncodeText, fileNameDecodeText);
+            huffmanTree.Encode(fileNameText, fileNameEncodeText);
+            startTime.Stop();
+            resultTime = startTime.Elapsed;
+
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+                    resultTime.Hours,
+                    resultTime.Minutes,
+                    resultTime.Seconds,
+                    resultTime.Milliseconds);
+
+            Console.WriteLine("Encode:  " + elapsedTime);
+
+
+
+            startTime = System.Diagnostics.Stopwatch.StartNew();
+            HuffmanTree huffmanTreeDecode = new HuffmanTree();
+            huffmanTreeDecode.Decode(fileNameEncodeText, fileNameDecodeText);
 
             startTime.Stop();
             resultTime = startTime.Elapsed;
@@ -64,60 +108,8 @@ namespace LosslessTextCompression_v2
                     resultTime.Seconds,
                     resultTime.Milliseconds);
 
-            Console.WriteLine("Adaptive decoded:  " + elapsedTime);
+            Console.WriteLine("Decoded:  " + elapsedTime);
         }
-
-        //static void Main(string[] args)
-        //{
-        //    string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text";
-        //    string fileNameText = path + "\\inputtest.txt";
-        //    string fileNameDictionary = path + "\\dicry.txt";
-        //    string fileNameEncodeText = path + "\\encodetext.bin";
-        //    string fileNameDecodeText = path + "\\decodetext.txt";
-        //    FrequencyDictionary frequencyDictionary = new FrequencyDictionary(fileNameText);
-        //    frequencyDictionary.WriteDictionary(fileNameDictionary);
-
-        //    var startTime = System.Diagnostics.Stopwatch.StartNew();
-
-        //    HuffmanTree huffmanTree = new HuffmanTree(frequencyDictionary);
-
-        //    startTime.Stop();
-        //    var resultTime = startTime.Elapsed;
-
-        //    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-        //            resultTime.Hours,
-        //            resultTime.Minutes,
-        //            resultTime.Seconds,
-        //            resultTime.Milliseconds);
-        //    Console.WriteLine("Tree build:  " + elapsedTime);
-
-        //    startTime = System.Diagnostics.Stopwatch.StartNew();
-        //    huffmanTree.Encode(fileNameText, fileNameEncodeText);
-        //    startTime.Stop();
-        //    resultTime = startTime.Elapsed;
-
-        //    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-        //            resultTime.Hours,
-        //            resultTime.Minutes,
-        //            resultTime.Seconds,
-        //            resultTime.Milliseconds);
-
-        //    Console.WriteLine("Encode:  " + elapsedTime);
-
-        //    startTime = System.Diagnostics.Stopwatch.StartNew();
-        //    huffmanTree.Decode(fileNameEncodeText, fileNameDecodeText);
-
-        //    startTime.Stop();
-        //    resultTime = startTime.Elapsed;
-
-        //    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-        //            resultTime.Hours,
-        //            resultTime.Minutes,
-        //            resultTime.Seconds,
-        //            resultTime.Milliseconds);
-
-        //    Console.WriteLine("Decoded:  " + elapsedTime);
-        //}
 
         //static void Main(string[] args)
         //{

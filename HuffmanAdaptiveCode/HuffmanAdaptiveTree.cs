@@ -31,7 +31,6 @@ namespace HuffmanAdaptiveCode
             _nyt = Root;
             _nodes = new List<Node>();
             _nodes.Add(Root);
-            //_nodes[Root.Number] = Root;
             _nextNum = 1;
         }
 
@@ -91,7 +90,6 @@ namespace HuffmanAdaptiveCode
 
         public List<bool> Encode(string word)
         {
-            //Node node = Root.FindOrDefault(word);
             Node node = null;
             if(dictionaryNodes.ContainsKey(word))
                 node = dictionaryNodes[word];
@@ -100,13 +98,11 @@ namespace HuffmanAdaptiveCode
 
             if (node != null)
             {
-                //code = Root.GetCode(node);
                 code = GetCode(node);
                 node.Weight++;
             }
             else
             {
-                //code = Root.GetNYTCode(code);
                 code = GetNYTCode();
                 if(code==null)
                 {
@@ -152,21 +148,7 @@ namespace HuffmanAdaptiveCode
 
         public void Encode(string fileNameSource, string fileNameEncode)
         {
-            var startTime = System.Diagnostics.Stopwatch.StartNew();
-
             BitArray bitArray = EncodeFile(fileNameSource);
-
-            startTime.Stop();
-            var resultTime = startTime.Elapsed;
-
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-
-            Console.WriteLine("Adaptive get bit array:  " + elapsedTime);
-            //BitArray bitArray = EncodeFile(fileNameSource);
             byte[] res = new byte[bitArray.Count / 8];
             bitArray.CopyTo(res, 0);
             File.WriteAllBytes(@fileNameEncode, res); ;
@@ -252,11 +234,11 @@ namespace HuffmanAdaptiveCode
                     for (int i = 0; i < w2cArray.Length; i++)
                     {
                         w2cArray[i] = word2code.Substring(i * 8, 8 * (i + 1));
-                        wordbuf += Convert.ToString(Convert.ToSByte(w2cArray[i]));//Enumerable.Range(0,w2cArray.Length).Select(j=>)( byte.Parse(w2cArray[i]).ToString();
+                        wordbuf += Convert.ToString(Convert.ToSByte(w2cArray[i]));
                     }
-                    //Encoding.Default.GetString()
+
                     code = code.Remove(0, num + 1);
-                    //word = code[index - 1].ToString();
+
                     word = wordbuf;
                     node = AddToNYT(word);
                 }
@@ -273,49 +255,6 @@ namespace HuffmanAdaptiveCode
 
             return result.ToString();
         }
-
-        //public string Decode(BitArray code)
-        //{
-        //    var result = new StringBuilder();
-
-        //    int index = 0;
-        //    while (index < code.Length)
-        //    {
-        //        Node node;
-
-        //        string word = ReadString(index, code, out int count);
-        //        index += count;
-
-        //        if (word == null)
-        //        {
-        //            byte num = byte.Parse(code.Substring(0, 8));
-        //            string word2code = code.Substring(9, num * 8);
-        //            string[] w2cArray = new string[(int)Math.Round((double)(word2code.Length / 8), 0)];
-        //            string wordbuf = "";
-        //            for (int i = 0; i < w2cArray.Length; i++)
-        //            {
-        //                w2cArray[i] = word2code.Substring(i * 8, 8 * (i + 1));
-        //                wordbuf += Convert.ToString(Convert.ToSByte(w2cArray[i]));//Enumerable.Range(0,w2cArray.Length).Select(j=>)( byte.Parse(w2cArray[i]).ToString();
-        //            }
-        //            //Encoding.Default.GetString()
-        //            code = code.Remove(0, num + 1);
-        //            //word = code[index - 1].ToString();
-        //            word = wordbuf;
-        //            node = AddToNYT(word);
-        //        }
-        //        else
-        //        {
-        //            node = Root.FindOrDefault(word);
-        //            node.Weight++;
-        //        }
-
-        //        UpdateAll(node.Parent);
-
-        //        result.Append(word);
-        //    }
-
-        //    return result.ToString();
-        //}
 
         public byte GetLenWordFromBitArray(int index, BitArray bits)
         {
@@ -365,9 +304,6 @@ namespace HuffmanAdaptiveCode
         public void Decode(BitArray bits, string fileName)
         {
             StreamWriter fileWrite = new StreamWriter(@fileName);
-            //NodeHT current = this.Root;
-            string decoded = "";
-            //string code = "";
             int endBitArr = bits.Count - 1;
             while (bits[endBitArr] != true)
                 endBitArr--;
@@ -415,15 +351,12 @@ namespace HuffmanAdaptiveCode
                 }
                 else
                 {
-                    //node = Root.FindOrDefault(word);
                     node = dictionaryNodes[word];
                     node.Weight++;
                 }
-
                 UpdateAll(node.Parent);
 
                 fileWrite.Write(word);
-                //fileWrite.Close();
             }
 
             fileWrite.Close();
@@ -496,7 +429,6 @@ namespace HuffmanAdaptiveCode
             _nyt.Right = node;
             _nodes.Add(node);
             _nextNum++;
-            //_nodes[_nextNum--] = node;
 
             var nyt = new Node(_nyt)
             {
@@ -507,7 +439,6 @@ namespace HuffmanAdaptiveCode
             _nyt.Left = nyt;
             _nodes.Add(nyt);
             _nextNum++;
-            //_nodes[_nextNum--] = nyt;
 
             _nyt = nyt;
 

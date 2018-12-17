@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace LosslessTextCompression_v2
 {
-    class NodeHT
+    public class NodeHT
     {
         public string Word { get; set; }
         public int Frequency { get; set; }
         public NodeHT Right { get; set; }
         public NodeHT Left { get; set; }
+        public NodeHT Parent { get; set; }
 
         public List<bool> Traverse(string word, List<bool> data)
         {

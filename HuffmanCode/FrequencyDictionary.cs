@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace LosslessTextCompression_v2
+namespace HuffmanCode
 {
     public class FrequencyDictionary
     {
@@ -49,7 +49,6 @@ namespace LosslessTextCompression_v2
             string line;
             while ((line = fileRead.ReadLine()) != null)
             {
-            
                 //так как считываем мы построчно, то теряем символ '\n'
                 line = line + "\n";
                 int indexBegin = 0;
@@ -58,7 +57,7 @@ namespace LosslessTextCompression_v2
                 {
                     while (indexEnd < line.Length &&
                         ((line[indexEnd] >= 'a' && line[indexEnd] <= 'z') ||
-                         (line[indexEnd] >= 'A' && line[indexEnd] <= 'Z'))||
+                         (line[indexEnd] >= 'A' && line[indexEnd] <= 'Z')) ||
                         ((line[indexEnd] >= 'а' && line[indexEnd] <= 'я') ||
                          (line[indexEnd] >= 'А' && line[indexEnd] <= 'Я')))
                     {

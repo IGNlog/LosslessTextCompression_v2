@@ -78,7 +78,7 @@ namespace LosslessTextCompression_v2
                     resultTime.Minutes,
                     resultTime.Seconds,
                     resultTime.Milliseconds);
-            //Console.WriteLine("Tree build:  " + elapsedTime);
+            Console.WriteLine("Tree build:  " + elapsedTime);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
             huffmanTree.Encode(fileNameText, fileNameEncodeText);

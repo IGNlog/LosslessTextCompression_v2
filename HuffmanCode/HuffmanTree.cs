@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
-namespace LosslessTextCompression_v2
+namespace HuffmanCode
 {
     public class HuffmanTree
     {
@@ -31,32 +31,32 @@ namespace LosslessTextCompression_v2
             Frequencies = new FrequencyDictionary();
             Frequencies = frequencyDictionary;
 
-            var startTime = System.Diagnostics.Stopwatch.StartNew();
+            //var startTime = System.Diagnostics.Stopwatch.StartNew();
 
             BuildTree(Frequencies);
 
-            startTime.Stop();
-            var resultTime = startTime.Elapsed;
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-            Console.WriteLine("Build tree:  " + elapsedTime);
+            //startTime.Stop();
+            //var resultTime = startTime.Elapsed;
+            //string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+            //        resultTime.Hours,
+            //        resultTime.Minutes,
+            //        resultTime.Seconds,
+            //        resultTime.Milliseconds);
+            //Console.WriteLine("Build tree:  " + elapsedTime);
 
-            startTime = System.Diagnostics.Stopwatch.StartNew();
+            //startTime = System.Diagnostics.Stopwatch.StartNew();
 
             BuildCodeTable(Frequencies);
 
-            startTime.Stop();
-            resultTime = startTime.Elapsed;
+            //startTime.Stop();
+            //resultTime = startTime.Elapsed;
 
-            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-            Console.WriteLine("Build code table:  " + elapsedTime);
+           //elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+            //        resultTime.Hours,
+            //        resultTime.Minutes,
+            //        resultTime.Seconds,
+            //        resultTime.Milliseconds);
+            //Console.WriteLine("Build code table:  " + elapsedTime);
             //BuildCodeTable(Frequencies);
         }
 
@@ -142,7 +142,7 @@ namespace LosslessTextCompression_v2
                 lenBitWord = (byte)item.Key.Length;
                 for (int i = 0; i < 8; i++)
                 {
-                    if (((lenBitWord << i) & maskForEncode) == 0x00)
+                    if(((lenBitWord<<i) & maskForEncode) == 0x00)
                     {
                         res.Add(false);
                     }
@@ -176,7 +176,7 @@ namespace LosslessTextCompression_v2
                 //{
                 //    freq[i] = buf[buf.Length - 1 - i];
                 //}
-
+                
 
                 foreach (var b in freq)
                 {
@@ -244,7 +244,7 @@ namespace LosslessTextCompression_v2
                 byte lenWord = 0x00;
                 for (int i = 0; i < 8; i++)
                 {
-                    if (bitArray[index + i])
+                    if(bitArray[index + i])
                     {
                         lenWord = (byte)(lenWord | maskForEncodeTable[i]);
                     }
@@ -288,8 +288,8 @@ namespace LosslessTextCompression_v2
                 }
             }
             BitArray resArr = new BitArray(bitRes.ToArray());
-            byte[] lenBACT = BitConverter.GetBytes(bitArrayCodeTable.Count);
-            byte[] res = new byte[resArr.Count / 8 + lenBACT.Length];
+            byte[] lenBACT = BitConverter.GetBytes(bitArrayCodeTable.Count);            
+            byte[] res = new byte[ resArr.Count / 8 + lenBACT.Length ];
             lenBACT.CopyTo(res, 0);
             resArr.CopyTo(res, lenBACT.Length);
             File.WriteAllBytes(@fileNameEncode, res);
@@ -372,11 +372,11 @@ namespace LosslessTextCompression_v2
             NodeHT current = this.Root;
             string decoded = "";
 
-            int endBitArr = bits.Count - 1;
+            int endBitArr = bits.Count-1;
             while (bits[endBitArr] != true)
                 endBitArr--;
 
-            for (int i = indexStart; i < endBitArr; i++)
+            for(int i=indexStart; i<endBitArr; i++)
             {
                 if (bits[i])
                 {

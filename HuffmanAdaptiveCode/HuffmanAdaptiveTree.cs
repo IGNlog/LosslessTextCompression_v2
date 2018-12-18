@@ -156,7 +156,7 @@ namespace HuffmanAdaptiveCode
 
         public BitArray EncodeFile(string fileName)
         {
-            StreamReader fileRead = new StreamReader(@fileName);
+            StreamReader fileRead = new StreamReader(@fileName, Encoding.Default);
             List<bool> encodedSource = new List<bool>();
             string line;
             
@@ -171,7 +171,9 @@ namespace HuffmanAdaptiveCode
                 {
                     while (indexEnd < line.Length &&
                         ((line[indexEnd] >= 'a' && line[indexEnd] <= 'z') ||
-                        ((line[indexEnd] >= 'A' && line[indexEnd] <= 'Z'))))
+                         (line[indexEnd] >= 'A' && line[indexEnd] <= 'Z')) ||
+                        ((line[indexEnd] >= 'а' && line[indexEnd] <= 'я') ||
+                         (line[indexEnd] >= 'А' && line[indexEnd] <= 'Я')))
                     {
                         indexEnd++;
                     }

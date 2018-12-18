@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HuffmanAlg"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="714.87" Width="847.2">
     <Grid Name="grd" DataContext="{Binding}">
         <Grid.RowDefinitions>
             <RowDefinition Height="18" />
             <RowDefinition Height="35" />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="91*" />
+            <RowDefinition Height="7*" />
+            <RowDefinition Height="40.8" />
+            <RowDefinition Height="225*" />
             <RowDefinition Height="44" />
             <RowDefinition Height="36" />
             <RowDefinition Height="48" />
@@ -23,13 +23,12 @@
             <ColumnDefinition Width="243*" />
             <ColumnDefinition Width="145*" />
         </Grid.ColumnDefinitions>
-        <Button Content="Encode" Margin="5,0,12,3" Name="button1" Click="button1_Click" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2" Height="61" VerticalAlignment="Bottom" IsEnabled="True" />
-        <ProgressBar Margin="12,0,5,2" Name="progressBar1" Grid.ColumnSpan="3" Grid.Row="5" Height="26" VerticalAlignment="Bottom" />
-        <Label Margin="12,0,5,3" Name="label1" FontFamily="Arial" FontSize="16" FontStretch="Condensed" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Grid.Row="6" Height="30" VerticalAlignment="Bottom" />
-        <Button Content="Input" Name="button2" Click="button2_Click" Grid.Row="1" Margin="8,0,0,0" Height="34" VerticalAlignment="Top" />
-        <TextBox Margin="1,0,10,1" Name="textBox1" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" TextChanged="textBox1_TextChanged" />
-        <Button Content="Output" Name="button3" Click="button3_Click" Grid.Row="3" Margin="8,0,0,0" Height="35" VerticalAlignment="Top" IsEnabled="False" />
-        <TextBox Name="textBox2" Grid.Column="2" Grid.Row="3" Margin="1,1,10,0" Grid.ColumnSpan="2" IsEnabled="False" />
-        <Label FontFamily="Arial" FontSize="16" FontStretch="Condensed" HorizontalContentAlignment="Left" Margin="12,0,12,12" Name="label2" Grid.ColumnSpan="4" Grid.Row="7" Height="30" VerticalAlignment="Bottom" />
+        <Button Content="Encode" Margin="117,0,63.4,19.6" Name="button1" Click="button1_Click" Grid.Column="2" Grid.Row="6" Grid.RowSpan="2" Height="61" VerticalAlignment="Bottom" IsEnabled="True" />
+        <Label Margin="12,0,5.4,2.6" Name="label1" FontFamily="Arial" FontSize="16" FontStretch="Condensed" HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Grid.Row="6" Height="30" VerticalAlignment="Bottom" />
+        <Button Content="Input" Name="button2" Click="button2_Click" Grid.Row="1" Margin="8,0.4,0,0" Height="34" VerticalAlignment="Top" />
+        <TextBox Margin="1,0.4,9.8,0.8" Name="textBox1" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" TextChanged="textBox1_TextChanged" />
+        <Label FontFamily="Arial" FontSize="16" FontStretch="Condensed" HorizontalContentAlignment="Left" Margin="12,0,11.8,11.6" Name="label2" Grid.ColumnSpan="4" Grid.Row="7" Height="30" VerticalAlignment="Bottom" />
+        <GroupBox x:Name="groupBox" Header="GroupBox" HorizontalAlignment="Left" Height="462" Margin="12,2.8,0,0" Grid.Row="3" VerticalAlignment="Top" Width="394" Grid.RowSpan="2" Grid.ColumnSpan="3"/>
+        <GroupBox x:Name="groupBox1" Grid.Column="2" Header="GroupBoxv" HorizontalAlignment="Left" Height="452" Margin="243,12.8,0,0" Grid.Row="3" VerticalAlignment="Top" Width="394" RenderTransformOrigin="-0.855,-1.539" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

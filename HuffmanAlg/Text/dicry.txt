@@ -1,4 +1,0 @@
-var	2
-SYMBOL_SPACE	2
-error	1
-SYMBOL_ENTER	1

@@ -31,6 +31,8 @@ namespace HuffmanAlgoClient
             //Пока Так
             textBoxBlock.Text = "-";
             textBoxBlock.Enabled = false;
+            checkBoxBlock.Enabled = false;
+            labelBlock.Enabled = false;
 
         }
 

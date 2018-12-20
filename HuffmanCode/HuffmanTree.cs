@@ -51,7 +51,7 @@ namespace HuffmanCode
             //startTime.Stop();
             //resultTime = startTime.Elapsed;
 
-           //elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+            //elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
             //        resultTime.Hours,
             //        resultTime.Minutes,
             //        resultTime.Seconds,
@@ -142,7 +142,7 @@ namespace HuffmanCode
                 lenBitWord = (byte)item.Key.Length;
                 for (int i = 0; i < 8; i++)
                 {
-                    if(((lenBitWord<<i) & maskForEncode) == 0x00)
+                    if (((lenBitWord << i) & maskForEncode) == 0x00)
                     {
                         res.Add(false);
                     }
@@ -176,7 +176,7 @@ namespace HuffmanCode
                 //{
                 //    freq[i] = buf[buf.Length - 1 - i];
                 //}
-                
+
 
                 foreach (var b in freq)
                 {
@@ -197,7 +197,7 @@ namespace HuffmanCode
             return res;
         }
 
-        public string GetWordFromBitArray(int index, byte len, BitArray bits)
+        public static string GetWordFromBitArray(int index, byte len, BitArray bits)
         {
             //здесь будет слово в байтовом виде 
             byte[] wordByte = new byte[len];
@@ -215,7 +215,7 @@ namespace HuffmanCode
             return Encoding.Default.GetString(wordByte);
         }
 
-        public int GetIntFromBitArray(int index, BitArray bits)
+        public static int GetIntFromBitArray(int index, BitArray bits)
         {
             //здесь будет слово в байтовом виде 
             byte[] intByte = new byte[4];
@@ -233,7 +233,7 @@ namespace HuffmanCode
             return BitConverter.ToInt32(intByte, 0);
         }
 
-        public FrequencyDictionary GetFrequencyDictionaryFromFile(BitArray bitArray, int indexStart, int indexStop)
+        public static FrequencyDictionary GetFrequencyDictionaryFromFile(BitArray bitArray, int indexStart, int indexStop)
         {
             Dictionary<string, int> frequenceDictionary = new Dictionary<string, int>();
             int index = indexStart;
@@ -244,7 +244,7 @@ namespace HuffmanCode
                 byte lenWord = 0x00;
                 for (int i = 0; i < 8; i++)
                 {
-                    if(bitArray[index + i])
+                    if (bitArray[index + i])
                     {
                         lenWord = (byte)(lenWord | maskForEncodeTable[i]);
                     }
@@ -288,8 +288,8 @@ namespace HuffmanCode
                 }
             }
             BitArray resArr = new BitArray(bitRes.ToArray());
-            byte[] lenBACT = BitConverter.GetBytes(bitArrayCodeTable.Count);            
-            byte[] res = new byte[ resArr.Count / 8 + lenBACT.Length ];
+            byte[] lenBACT = BitConverter.GetBytes(bitArrayCodeTable.Count);
+            byte[] res = new byte[resArr.Count / 8 + lenBACT.Length];
             lenBACT.CopyTo(res, 0);
             resArr.CopyTo(res, lenBACT.Length);
             File.WriteAllBytes(@fileNameEncode, res);
@@ -341,6 +341,17 @@ namespace HuffmanCode
             return encodedSource;
         }
 
+        public List<bool> EncodeBlock(List<string> words)
+        {
+            List<bool> encode = new List<bool>();
+            foreach (var word in words)
+            {
+                encode.AddRange(CodeTable[word]);
+            }
+            return encode;
+        }
+
+
         public void Decode(string fileNameSource, string fileNameDecode)
         {
             BitArray bitArray = null;
@@ -372,11 +383,11 @@ namespace HuffmanCode
             NodeHT current = this.Root;
             string decoded = "";
 
-            int endBitArr = bits.Count-1;
+            int endBitArr = bits.Count - 1;
             while (bits[endBitArr] != true)
                 endBitArr--;
 
-            for(int i=indexStart; i<endBitArr; i++)
+            for (int i = indexStart; i < endBitArr; i++)
             {
                 if (bits[i])
                 {
@@ -401,6 +412,38 @@ namespace HuffmanCode
                 }
             }
             fileWrite.Close();
+        }
+
+        public string DecodeBlock(BitArray bits, int indexStart, int indexStop)
+        {
+            string textBlock = "";
+            //string decoded = "";
+            NodeHT current = this.Root;
+            for (int i = indexStart; i < indexStop; i++)
+            {
+                if (bits[i])
+                {
+                    if (current.Right != null)
+                    {
+                        current = current.Right;
+                    }
+                }
+                else
+                {
+                    if (current.Left != null)
+                    {
+                        current = current.Left;
+                    }
+                }
+
+                if (IsLeaf(current))
+                {
+                    textBlock += current.Word;
+                    current = this.Root;
+                }
+            }
+
+            return textBlock;
         }
 
         public bool IsLeaf(NodeHT node)

@@ -34,12 +34,37 @@ namespace HuffmanCode
             CountWord = Dictionary.Count;
         }
 
+        public FrequencyDictionary(List<string> words)
+        {
+            Dictionary = new Dictionary<string, int>();
+            Dictionary = GetDictionary(words);
+            CountWord = Dictionary.Count;
+        }
+
         public FrequencyDictionary(string fileNameText, string fileNameDictionary)
         {
             Dictionary = new Dictionary<string, int>();
             Dictionary = GetDictionary(fileNameText);
             CountWord = Dictionary.Count;
             WriteDictionary(Dictionary, fileNameDictionary);
+        }
+
+        ///Получаем с блока слов частотный словарь
+        public static Dictionary<string, int> GetDictionary(List<string> words)
+        {
+            Dictionary<string, int> dictionary = new Dictionary<string, int>();
+            foreach (var word in words)
+            {
+                if(dictionary.ContainsKey(word))
+                {
+                    dictionary[word]++;
+                }
+                else
+                {
+                    dictionary.Add(word, 1);
+                }
+            }
+            return dictionary;
         }
 
         public Dictionary<string, int> GetDictionary(string fileNameText)

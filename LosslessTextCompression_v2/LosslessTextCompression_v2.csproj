@@ -60,6 +60,10 @@
       <Project>{2dc9ad02-2f0b-40ad-827d-421f0ac12221}</Project>
       <Name>HuffmanAdaptiveCode</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HuffmanCode\HuffmanCode.csproj">
+      <Project>{78c41d5c-8277-41b5-9f2d-e8c0e6ed8d22}</Project>
+      <Name>HuffmanCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

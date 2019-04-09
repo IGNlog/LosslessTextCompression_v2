@@ -168,7 +168,6 @@ namespace HuffmanCode
                     }
                 }
 
-                //выполняем реверс
                 byte[] buf = BitConverter.GetBytes(item.Value);
                 byte[] freq = new byte[4];
                 freq = buf;
@@ -380,6 +379,7 @@ namespace HuffmanCode
         public void Decode(BitArray bits, int indexStart, string fileName)
         {
             StreamWriter fileWrite = new StreamWriter(@fileName);
+            //string text = ""; 
             NodeHT current = this.Root;
             string decoded = "";
 
@@ -408,10 +408,12 @@ namespace HuffmanCode
                 {
                     decoded = current.Word;
                     fileWrite.Write(decoded);
+                    //text += decoded;
                     current = this.Root;
                 }
             }
             fileWrite.Close();
+            //File.WriteAllText(fileName, text);
         }
 
         public string DecodeBlock(BitArray bits, int indexStart, int indexStop)

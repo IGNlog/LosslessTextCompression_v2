@@ -14,6 +14,15 @@ namespace HuffmanCode
         public int CountWord { get; set; }
         //сам словарь непосредственно
         public Dictionary<string, int> Dictionary { get; set; }
+        //
+        public int CountWordsInText { get; set; }
+
+        public FrequencyDictionary(int countWord, Dictionary<string, int> dictionary, int countWordsInText)
+        {
+            CountWord = countWord;
+            Dictionary = dictionary;
+            CountWordsInText = countWordsInText;
+        }
 
         public FrequencyDictionary(int countWord, Dictionary<string, int> dictionary)
         {
@@ -24,14 +33,16 @@ namespace HuffmanCode
         public FrequencyDictionary()
         {
             CountWord = 0;
+            CountWordsInText = 0;
             Dictionary<string, int> dictionary = new Dictionary<string, int>(CountWord);
         }
 
         public FrequencyDictionary(string fileNameText)
         {
             Dictionary = new Dictionary<string, int>();
-            Dictionary = GetDictionary(fileNameText);
+            Dictionary = GetDictionary(fileNameText, out int countWordsInText);
             CountWord = Dictionary.Count;
+            CountWordsInText = countWordsInText;
         }
 
         public FrequencyDictionary(List<string> words)
@@ -44,8 +55,9 @@ namespace HuffmanCode
         public FrequencyDictionary(string fileNameText, string fileNameDictionary)
         {
             Dictionary = new Dictionary<string, int>();
-            Dictionary = GetDictionary(fileNameText);
+            Dictionary = GetDictionary(fileNameText, out int countWordsInText);
             CountWord = Dictionary.Count;
+            CountWordsInText = countWordsInText;
             WriteDictionary(Dictionary, fileNameDictionary);
         }
 
@@ -67,11 +79,12 @@ namespace HuffmanCode
             return dictionary;
         }
 
-        public Dictionary<string, int> GetDictionary(string fileNameText)
+        public Dictionary<string, int> GetDictionary(string fileNameText, out int sizeTextInWords)
         {
             StreamReader fileRead = new StreamReader(@fileNameText, Encoding.Default);
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
             string line;
+            sizeTextInWords = 0;
             while ((line = fileRead.ReadLine()) != null)
             {
                 //так как считываем мы построчно, то теряем символ '\n'
@@ -100,7 +113,7 @@ namespace HuffmanCode
                         word = line.Substring(indexBegin, indexEnd - indexBegin);
                     }
                     indexBegin = indexEnd;
-
+                    sizeTextInWords++;
                     if (dictionary.ContainsKey(word))
                     {
                         dictionary[word]++;
@@ -163,7 +176,7 @@ namespace HuffmanCode
                 string[] keyValue = line.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (keyValue[0])
                 {
-                    case "SYMBOL_TAB":
+                    case "SYMBOL_TAB"://это знак препенания, пробел или знак табуляции
                         dictionary.Add("\t", int.Parse(keyValue[1]));
                         break;
                     case "SYMBOL_ENTER":

@@ -42,6 +42,12 @@ namespace LosslessTextCompression_v2
             WriteDictionary(Dictionary, fileNameDictionary);
         }
 
+        public FrequencyDictionary(List<string> words)
+        {
+            Dictionary = GetDictionary(words);
+            CountWord = words.Count;
+        }
+
         public Dictionary<string, int> GetDictionary(string fileNameText)
         {
             StreamReader fileRead = new StreamReader(@fileNameText, Encoding.Default);
@@ -90,6 +96,23 @@ namespace LosslessTextCompression_v2
             fileRead.Close();
             return dictionary;
 
+        }
+
+        public Dictionary<string, int> GetDictionary(List<string> words)
+        {
+            Dictionary<string, int> dictionary = new Dictionary<string, int>();
+            foreach (var word in words)
+            {
+                if (dictionary.ContainsKey(word))
+                {
+                    dictionary[word]++;
+                }
+                else
+                {
+                    dictionary.Add(word, 1);
+                }
+            }
+            return dictionary;
         }
 
         public static void WriteDictionary(Dictionary<string, int> dictionary, string fileNameDictionary)

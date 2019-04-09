@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using HuffmanAdaptiveCode;
+using HuffmanCode;
 
 namespace LosslessTextCompression_v2
 {
@@ -54,103 +55,97 @@ namespace LosslessTextCompression_v2
         //    Console.WriteLine("Adaptive decoded:  " + elapsedTime);
         //}
 
-        static void Main(string[] args)
-        {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text";
-            string fileNameText = path + "\\input.txt";
-            string fileNameDictionary = path + "\\dicry.txt";
-            string fileNameEncodeText = path + "\\encodetext.bin";
-            string fileNameDecodeText = path + "\\decodetext.txt";
-            FrequencyDictionary frequencyDictionary = new FrequencyDictionary(fileNameText);
-
-
-            frequencyDictionary.WriteDictionary(fileNameDictionary);
-
-            var startTime = System.Diagnostics.Stopwatch.StartNew();
-
-            HuffmanTree huffmanTree = new HuffmanTree(frequencyDictionary);
-
-            startTime.Stop();
-            var resultTime = startTime.Elapsed;
-
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-            Console.WriteLine("Tree build:  " + elapsedTime);
-
-            startTime = System.Diagnostics.Stopwatch.StartNew();
-            huffmanTree.Encode(fileNameText, fileNameEncodeText);
-            startTime.Stop();
-            resultTime = startTime.Elapsed;
-
-            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-
-            Console.WriteLine("Encode:  " + elapsedTime);
-
-
-
-            startTime = System.Diagnostics.Stopwatch.StartNew();
-            HuffmanTree huffmanTreeDecode = new HuffmanTree();
-            huffmanTreeDecode.Decode(fileNameEncodeText, fileNameDecodeText);
-
-            startTime.Stop();
-            resultTime = startTime.Elapsed;
-
-            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-                    resultTime.Hours,
-                    resultTime.Minutes,
-                    resultTime.Seconds,
-                    resultTime.Milliseconds);
-
-            Console.WriteLine("Decoded:  " + elapsedTime);
-        }
 
         //static void Main(string[] args)
         //{
-        //    char[] buf = { 'A', 'B', 'B', 'A', 'C' };
-        //    List<AdaptiveHaffmanAlgorithm.Node> tree = new List<AdaptiveHaffmanAlgorithm.Node>();
-        //    Dictionary<char, AdaptiveHaffmanAlgorithm.Node> leaves = new Dictionary<char, AdaptiveHaffmanAlgorithm.Node>();
-        //    AdaptiveHaffmanAlgorithm.Node root = new AdaptiveHaffmanAlgorithm.Node();
-        //    AdaptiveHaffmanAlgorithm.Node esc = root;
-        //    tree.Add(root);
+        //    string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text";
+        //    string fileNameText = path + "\\input.txt";
+        //    string fileNameDictionary = path + "\\dicry.txt";
+        //    string fileNameEncodeText = path + "\\encodetext.bin";
+        //    string fileNameDecodeText = path + "\\decodetext.txt";
+        //    FrequencyDictionary frequencyDictionary = new FrequencyDictionary(fileNameText);
 
-        //    for (int i = 0; i < buf.Length; i++)
-        //    {
-        //        if (leaves.ContainsKey(buf[i]))//leaves[buf[i]] != null)
-        //        {
-        //            AdaptiveHaffmanAlgorithm.IncWeight(leaves[buf[i]]);
-        //            AdaptiveHaffmanAlgorithm.OutCode(AdaptiveHaffmanAlgorithm.GetCode(leaves[buf[i]], new List<bool>()));
-        //        }
-        //        else
-        //        {
-        //            leaves[buf[i]] = new AdaptiveHaffmanAlgorithm.Node();
-        //            leaves[buf[i]].Simbol = buf[i];
-        //            leaves[buf[i]].Parent = esc;
 
-        //            AdaptiveHaffmanAlgorithm.Node tmp = new AdaptiveHaffmanAlgorithm.Node();
-        //            tmp.Parent = esc;
+        //    frequencyDictionary.WriteDictionary(fileNameDictionary);
 
-        //            esc.LeftChild = tmp;
-        //            esc.RightChild = leaves[buf[i]];
-        //            tree.Add(leaves[buf[i]]);
-        //            tree.Add(tmp);
+        //    var startTime = System.Diagnostics.Stopwatch.StartNew();
 
-        //            AdaptiveHaffmanAlgorithm.OutCode(AdaptiveHaffmanAlgorithm.GetCode(esc, new List<bool>()));
-        //            Console.WriteLine(buf[i]);
+        //    HuffmanTree huffmanTree = new HuffmanTree(frequencyDictionary);
 
-        //            esc = tmp;
-        //            AdaptiveHaffmanAlgorithm.IncWeight(leaves[buf[i]]);
+        //    startTime.Stop();
+        //    var resultTime = startTime.Elapsed;
 
-        //        }
-        //        tree = AdaptiveHaffmanAlgorithm.SortTree(tree);
-        //        AdaptiveHaffmanAlgorithm.Recount(esc.Parent);
-        //    }
+        //    string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+        //            resultTime.Hours,
+        //            resultTime.Minutes,
+        //            resultTime.Seconds,
+        //            resultTime.Milliseconds);
+        //    Console.WriteLine("Tree build:  " + elapsedTime);
+
+        //    startTime = System.Diagnostics.Stopwatch.StartNew();
+        //    huffmanTree.Encode(fileNameText, fileNameEncodeText);
+        //    startTime.Stop();
+        //    resultTime = startTime.Elapsed;
+
+        //    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+        //            resultTime.Hours,
+        //            resultTime.Minutes,
+        //            resultTime.Seconds,
+        //            resultTime.Milliseconds);
+
+        //    Console.WriteLine("Encode:  " + elapsedTime);
+
+
+
+        //    startTime = System.Diagnostics.Stopwatch.StartNew();
+        //    HuffmanTree huffmanTreeDecode = new HuffmanTree();
+        //    huffmanTreeDecode.Decode(fileNameEncodeText, fileNameDecodeText);
+
+        //    startTime.Stop();
+        //    resultTime = startTime.Elapsed;
+
+        //    elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+        //            resultTime.Hours,
+        //            resultTime.Minutes,
+        //            resultTime.Seconds,
+        //            resultTime.Milliseconds);
+
+        //    Console.WriteLine("Decoded:  " + elapsedTime);
         //}
+
+
+        static void Main(string[] args)
+        {
+            ////Тест работы блочного класического алгоритма Хаффмана
+            //List<string> words = new List<string>();
+            //words.Add("A");
+            //words.Add("B");
+            //words.Add("B");
+            //words.Add("A");
+            //words.Add("A");
+            //words.Add("B");
+            //words.Add("A");
+            //words.Add("A");
+
+            //HuffmanAlgoBlock huffmanAlgoBlock = new HuffmanAlgoBlock();
+            //List<bool> listEncode = huffmanAlgoBlock.EncodeBlock(words);
+
+            //BitArray bitArrayEncode = new BitArray(listEncode.ToArray());
+
+            //HuffmanAlgoBlock huffmanAlgoBlock1 = new HuffmanAlgoBlock();
+            //int stop = bitArrayEncode.Count -1;
+            //string res = huffmanAlgoBlock1.DecodeBlock(bitArrayEncode, 0, out stop);
+
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text\\Text";
+            string fileNameText = path + "\\VoynaIMirTom1.txt";
+            string fileNameDictionary = path + "\\dicry.txt";
+            string fileNameEncodeText = path + "\\encodetext.bin";
+            string fileNameDecodeText = path + "\\decodetext.txt";
+
+            HuffmanAlgoBlock huffmanAlgoBlock = new HuffmanAlgoBlock();
+            huffmanAlgoBlock.EncodeBlock(@fileNameText, @fileNameEncodeText, 100000);
+
+            huffmanAlgoBlock.DecodeBlock(@fileNameEncodeText, @fileNameDecodeText);
+        }
     }
 }

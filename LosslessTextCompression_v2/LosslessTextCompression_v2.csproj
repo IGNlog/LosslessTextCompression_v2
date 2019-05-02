@@ -46,6 +46,7 @@
     <Compile Include="AdaptiveHuffmanAlg.cs" />
     <Compile Include="AdaptiveHaffmanAlgorithm.cs" />
     <Compile Include="AdaptiveHuffmanTree.cs" />
+    <Compile Include="ComparisonVector.cs" />
     <Compile Include="FrequencyDictionary.cs" />
     <Compile Include="HuffmanTree.cs" />
     <Compile Include="NodeHT.cs" />

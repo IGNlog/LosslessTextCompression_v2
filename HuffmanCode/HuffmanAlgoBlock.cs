@@ -180,6 +180,8 @@ namespace HuffmanCode
             //File.WriteAllText(@fileNameDecode, text);
         }
 
+        //public 
+
         //public string DecodeBlock(string fileNameEncode)
         //{
         //    BitArray bitArray = null;

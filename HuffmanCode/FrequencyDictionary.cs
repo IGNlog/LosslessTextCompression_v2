@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace HuffmanCode
 {
@@ -67,7 +67,7 @@ namespace HuffmanCode
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
             foreach (var word in words)
             {
-                if(dictionary.ContainsKey(word))
+                if (dictionary.ContainsKey(word))
                 {
                     dictionary[word]++;
                 }
@@ -83,47 +83,44 @@ namespace HuffmanCode
         {
             StreamReader fileRead = new StreamReader(@fileNameText, Encoding.Default);
             Dictionary<string, int> dictionary = new Dictionary<string, int>();
-            string line;
+            string text = fileRead.ReadToEnd();
             sizeTextInWords = 0;
-            while ((line = fileRead.ReadLine()) != null)
+            //while ((line = fileRead.ReadLine()) != null)
+            //{
+            //так как считываем мы построчно, то теряем символ '\n'
+            //line = line + "\n";
+            int indexBegin = 0;
+            int indexEnd = 0;
+            while (indexEnd < text.Length)
             {
-                //так как считываем мы построчно, то теряем символ '\n'
-                line = line + "\n";
-                int indexBegin = 0;
-                int indexEnd = 0;
-                while (indexEnd < line.Length)
+                while (indexEnd < text.Length &&
+                    char.IsLetter(text[indexEnd]))
                 {
-                    while (indexEnd < line.Length &&
-                        ((line[indexEnd] >= 'a' && line[indexEnd] <= 'z') ||
-                         (line[indexEnd] >= 'A' && line[indexEnd] <= 'Z')) ||
-                        ((line[indexEnd] >= 'а' && line[indexEnd] <= 'я') ||
-                         (line[indexEnd] >= 'А' && line[indexEnd] <= 'Я')))
-                    {
-                        indexEnd++;
-                    }
-                    //если мы прошлись по слову
-                    string word;
-                    if (indexBegin != indexEnd)
-                    {
-                        word = line.Substring(indexBegin, indexEnd - indexBegin);
-                    }
-                    else //это знак препенания, пробел или знак табуляции
-                    {
-                        indexEnd++;
-                        word = line.Substring(indexBegin, indexEnd - indexBegin);
-                    }
-                    indexBegin = indexEnd;
-                    sizeTextInWords++;
-                    if (dictionary.ContainsKey(word))
-                    {
-                        dictionary[word]++;
-                    }
-                    else
-                    {
-                        dictionary.Add(word, 1);
-                    }
+                    indexEnd++;
+                }
+                //если мы прошлись по слову
+                string word;
+                if (indexBegin != indexEnd)
+                {
+                    word = text.Substring(indexBegin, indexEnd - indexBegin);
+                }
+                else //это знак препенания, пробел или знак табуляции
+                {
+                    indexEnd++;
+                    word = text.Substring(indexBegin, indexEnd - indexBegin);
+                }
+                indexBegin = indexEnd;
+                sizeTextInWords++;
+                if (dictionary.ContainsKey(word))
+                {
+                    dictionary[word]++;
+                }
+                else
+                {
+                    dictionary.Add(word, 1);
                 }
             }
+            //}
             fileRead.Close();
             return dictionary;
 
@@ -243,7 +240,7 @@ namespace HuffmanCode
         public void ReadDictionary(string fileNameDictionary)
         {
             StreamReader fileRead = new StreamReader(@fileNameDictionary);
-            if(Dictionary!=null)
+            if (Dictionary != null)
                 Dictionary.Clear();
             Dictionary = new Dictionary<string, int>();
 

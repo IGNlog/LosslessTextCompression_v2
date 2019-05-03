@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitOperations.cs" />
+    <Compile Include="ComparisonVector.cs" />
     <Compile Include="FrequencyDictionary.cs" />
     <Compile Include="HuffmanAlgoBlock.cs" />
     <Compile Include="HuffmanTree.cs" />

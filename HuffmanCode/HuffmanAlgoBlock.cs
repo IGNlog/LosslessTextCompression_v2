@@ -180,7 +180,114 @@ namespace HuffmanCode
             //File.WriteAllText(@fileNameDecode, text);
         }
 
-        //public 
+        /// <summary>
+        /// Кодирование исходного текста блочным способом c использованием метрики 
+        /// </summary>
+        /// <param name="fileNameSource">Имя файла исходного текста</param>
+        /// <param name="sizeBlock">Размкр блока</param>
+        /// <returns>Закодированый текст блочным методом с использованием метрики, представленный в виде списка битов</returns>
+        public List<bool> EncodeBlockWithMetrics(string fileNameSource, int sizeBlock)
+        {
+            FrequencyDictionary frequencyDictionary = new FrequencyDictionary(fileNameSource);
+
+            Dictionary<string, double> p = ComparisonVector.GetVectorZerosFromFrequencyDictionary(frequencyDictionary);
+            Dictionary<string, double> q = ComparisonVector.GetVectorZerosFromFrequencyDictionary(frequencyDictionary);
+
+            List<double> distanceEuclide = new List<double>();
+            List<double> distanceCheb = new List<double>();
+            List<double> distanceCityBlock = new List<double>();
+
+            //Открываем поток для считывания с файла
+            StreamReader fileRead = new StreamReader(@fileNameSource, Encoding.Default);
+            List<bool> encodedSource = new List<bool>();
+            //Считываем весь текст с файла
+            string text = fileRead.ReadToEnd();
+            //int indexText = 0;
+            int indexBegin = 0;
+            int indexEnd = 0;
+            //пока не конец текста
+            while (indexEnd < text.Length)
+            {
+                //indexBegin = 0;
+                //indexEnd = 0;
+                List<string> listWords = new List<string>();
+                //идём по тексту, пока не наберём слов количеством в размер блока и пока не конец текста
+                for (int i = 0; (i < sizeBlock) && (indexEnd < text.Length); i++)
+                {
+                    //пока это буква увеличиваем индекс конца слова 
+                    while (indexEnd < text.Length && char.IsLetter(text[indexEnd])
+                            /*((text[indexEnd] >= 'a' && text[indexEnd] <= 'z') ||
+                             (text[indexEnd] >= 'A' && text[indexEnd] <= 'Z')) ||
+                            ((text[indexEnd] >= 'а' && text[indexEnd] <= 'я') ||
+                             (text[indexEnd] >= 'А' && text[indexEnd] <= 'Я'))*/)
+                    {
+                        indexEnd++;
+                    }
+                    //если мы прошлись по слову
+                    string word;
+                    if (indexBegin != indexEnd)
+                    {
+                        word = text.Substring(indexBegin, indexEnd - indexBegin);
+                    }
+                    else //это знак препенания, пробел или знак табуляции
+                    {
+                        indexEnd++;
+                        word = text.Substring(indexBegin, indexEnd - indexBegin);
+                    }
+                    indexBegin = indexEnd;
+                    //добавляем слово в блок
+                    listWords.Add(word);
+                }
+                //кодирум блок слов и добавляем получившиеся биты в список битов
+                encodedSource.AddRange(EncodeBlock(listWords));
+
+                //работа с растояниями
+                q = ComparisonVector.GetVectorFrequencyFromBlock(frequencyDictionary, listWords);
+                distanceEuclide.Add(ComparisonVector.GetEuclideanDistance(p, q));
+                distanceCheb.Add(ComparisonVector.GetChebyshevDistance(p, q));
+                distanceCityBlock.Add(ComparisonVector.GetCityBlockDistance(p, q));
+                p = q;
+
+            }
+            
+            for (int i = 0; i < distanceEuclide.Count; i++)
+            {
+                Console.Write(distanceEuclide[i].ToString() + " " +  distanceCheb[i].ToString() + 
+                    " " + distanceCityBlock[i].ToString() + "\n");
+            }
+
+            //возращаем закодированный блок слов в виде списка бит
+            return encodedSource;
+        }
+
+
+        public void EncodeBlockWithMetrics(string fileNameSource, string fileNameEncode, int sizeBlock)
+        {
+            //Кодируем исходный текст блочным методом
+            List<bool> bitsArr = EncodeBlockWithMetrics(@fileNameSource, sizeBlock);
+            //Дописываем приписок в зависимости от кратности 8 полученного списка битов
+            //Это нужно для того чтобы знать конец нашей последовательности битов 
+            //и была возможность записать эту последовательность в файл, т.к. минимальный объём инфорбации,
+            //что мы можем записать в файл - это байт
+            if (bitsArr.Count % 8 == 0)
+            {
+                bitsArr.AddRange(new List<bool> { true, false, false, false, false, false, false, false });
+            }
+            else
+            {
+                bitsArr.Add(true);
+                while (bitsArr.Count % 8 != 0)
+                {
+                    bitsArr.Add(false);
+                }
+            }
+            //Превращаем наш список битов в массив байтов
+            BitArray resArr = new BitArray(bitsArr.ToArray());
+            byte[] res = new byte[resArr.Count / 8];
+            resArr.CopyTo(res, 0);
+            //и записываем в файл
+            File.WriteAllBytes(@fileNameEncode, res);
+        }
 
         //public string DecodeBlock(string fileNameEncode)
         //{
@@ -194,7 +301,7 @@ namespace HuffmanCode
         //        throw exc;
         //    }
         //    string text = "";
-           
+
         //    int indexStart = 0;
 
         //    while(indexStart < bitArray.Count)

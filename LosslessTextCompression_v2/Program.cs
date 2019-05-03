@@ -137,13 +137,13 @@ namespace LosslessTextCompression_v2
             //string res = huffmanAlgoBlock1.DecodeBlock(bitArrayEncode, 0, out stop);
 
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Text\\Text";
-            string fileNameText = path + "\\VoynaIMirTom1.txt";
+            string fileNameText = path + "\\text.txt";
             string fileNameDictionary = path + "\\dicry.txt";
             string fileNameEncodeText = path + "\\encodetext.bin";
             string fileNameDecodeText = path + "\\decodetext.txt";
 
             HuffmanAlgoBlock huffmanAlgoBlock = new HuffmanAlgoBlock();
-            huffmanAlgoBlock.EncodeBlock(@fileNameText, @fileNameEncodeText, 100000);
+            huffmanAlgoBlock.EncodeBlockWithMetrics(@fileNameText, @fileNameEncodeText, 300);
 
             huffmanAlgoBlock.DecodeBlock(@fileNameEncodeText, @fileNameDecodeText);
         }

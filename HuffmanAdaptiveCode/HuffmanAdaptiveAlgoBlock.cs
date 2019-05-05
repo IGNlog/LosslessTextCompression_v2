@@ -1,11 +1,11 @@
-﻿using System;
+﻿using HuffmanCode;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HuffmanCode;
 
 namespace HuffmanAdaptiveCode
 {
@@ -255,5 +255,66 @@ namespace HuffmanAdaptiveCode
             }
             streamWriter.Close();
         }
+
+        /// <summary>
+        /// Декодирование блока
+        /// </summary>
+        /// <param name="bits">Последовательность бит, в которой содержиться закодированный блок</param>
+        /// <param name="indexStart">Индекс начала блока вместе с его длинной</param>
+        /// <param name="indexEnd">Индекс конца блока</param>
+        /// <returns>Декодированный блок текста</returns>
+        public StringBuilder DecodeBlock(BitArray bits, int indexStart, out int indexEnd)
+        {
+            int index = indexStart;
+            StringBuilder textBlock = new StringBuilder();
+            //извлекаем длину закодированного блока
+            int lenBlock = BitOperations.GetInt32FromBitArray(index, bits);
+            index += sizeByte * sizeof(int);
+            HuffmanAdaptiveTree huffmanAdaptiveTree = new HuffmanAdaptiveTree();
+            //декодируем блок
+            textBlock = huffmanAdaptiveTree.DecodeBlock(bits, index, index + lenBlock);
+            //изменяем индекс конца блока
+            indexEnd = index + lenBlock;
+
+            return textBlock;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileNameEncode"></param>
+        /// <param name="fileNameDecode"></param>
+        public void DecodeBlock(string fileNameEncode, string fileNameDecode)
+        {
+            BitArray bitArray = null;
+            try
+            {
+                bitArray = new BitArray((File.ReadAllBytes(fileNameEncode)));
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
+            //отсекаем дописок
+            int indexEnd = bitArray.Count - 1;
+            while (!bitArray[indexEnd])
+            {
+                indexEnd--;
+            }
+            indexEnd--;
+
+            StreamWriter fileWrite = new StreamWriter(@fileNameDecode);
+            int indexStart = 0;
+            StringBuilder textBlocks = new StringBuilder();
+
+            while (indexStart < indexEnd)
+            {
+                textBlocks = DecodeBlock(bitArray, indexStart, out indexStart);
+                fileWrite.Write(textBlocks.ToString());
+            }
+            fileWrite.Close();
+            //File.WriteAllText(@fileNameDecode, text);
+        }
+
     }
 }

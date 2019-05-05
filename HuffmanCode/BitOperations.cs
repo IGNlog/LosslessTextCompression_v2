@@ -134,5 +134,65 @@ namespace HuffmanCode
             //Получаем строковое представление слова
             return wordByte;
         }
+
+        public static string GetStringFromBitArray(int index, byte len, BitArray bits)
+        {
+            //здесь будет слово в байтовом виде 
+            byte[] wordByte = new byte[len];
+            for (int i = 0; i < len; i++)
+            {
+                for (int k = 0; k < 8; k++)
+                {
+                    if (bits[index + i * 8 + k])
+                    {
+                        wordByte[i] = (byte)(wordByte[i] | mask[k]);
+                    }
+                }
+            }
+            //Получаем строковое представление слова
+            return Encoding.Default.GetString(wordByte);
+        }
+
+        public static StringBuilder GetStringBuilderFromBitArray(int index, byte len, BitArray bits)
+        {
+            return new StringBuilder(GetStringFromBitArray(index, len, bits)); 
+        }
+
+        /// <summary>
+        /// Получить длину слова в байтах
+        /// </summary>
+        /// <param name="index">Индекс начала длины в битовой последовательности</param>
+        /// <param name="bits">Битовая последовательность</param>
+        /// <returns>Длину слова в виде байта</returns>
+        public static byte GetLenWordFromBitArray(int index, BitArray bits)
+        {
+            byte lenWord = 0x00;
+            for (int i = 0; i < 8; i++)
+            {
+                if (bits[i + index])
+                {
+                    lenWord = (byte)(lenWord | mask[i]);
+                }
+            }
+            return lenWord;
+        }
+
+        public static int GetInt32FromBitArray(int index, BitArray bits)
+        {
+            //здесь будет слово в байтовом виде 
+            byte[] intByte = new byte[4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int k = 0; k < 8; k++)
+                {
+                    if (bits[index + i * 8 + k])
+                    {
+                        intByte[i] = (byte)(intByte[i] | mask[k]);
+                    }
+                }
+            }
+            //Получаем строковое представление слова
+            return BitConverter.ToInt32(intByte, 0);
+        }
     }
 }

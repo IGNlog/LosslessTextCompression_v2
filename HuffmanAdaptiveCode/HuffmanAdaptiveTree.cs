@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HuffmanCode;
 
 namespace HuffmanAdaptiveCode
 {
@@ -313,6 +314,61 @@ namespace HuffmanAdaptiveCode
                 throw exc;
             }
             Decode(bitArray, fileNameDecode);
+        }
+
+        public StringBuilder DecodeBlock(BitArray bits, int indexStart, int indexEnd)
+        {
+            StringBuilder textBlock = new StringBuilder();
+            Node nodeFirsIter;
+            //вначале файла записана длина слова в байтах одним байтом
+            //потом идёт само слово в байтовом виде
+            int index = 0;
+            //сначала определяем длину слова
+            byte lenWord = BitOperations.GetLenWordFromBitArray(index, bits);
+            index += 8;
+            //Получаем строковое представление слова
+            string wordDecode = BitOperations.GetStringFromBitArray(index, lenWord, bits);
+            //индекс j будет указывать на след бит после первого слова
+            index += 8 * lenWord;
+            //заносим в дерево и обновляем его
+            nodeFirsIter = AddToNYT(wordDecode);
+            UpdateAll(nodeFirsIter.Parent);
+            //добавляем декодированое слово в результирующую строку
+            textBlock.Append(wordDecode);
+
+            dictionaryNodes.Add(wordDecode, nodeFirsIter);
+
+            //пока не дойдём до конца последовательности битов
+            while (index < indexEnd)
+            {
+                Node node;
+                string word = ReadString(index, bits, out int count);
+                index += count;
+
+                //если мы не получили код слова, значит его нет в дереве
+                //и мы прошли до esc символа
+
+                if (word == null)
+                {
+                    lenWord = BitOperations.GetLenWordFromBitArray(index, bits);
+                    index += 8;
+                    word = BitOperations.GetStringFromBitArray(index, lenWord, bits);
+                    index += 8 * lenWord;
+                    node = AddToNYT(word);
+
+                    dictionaryNodes.Add(word, node);
+                }
+                else
+                {
+                    node = dictionaryNodes[word];
+                    node.Weight++;
+                }
+                UpdateAll(node.Parent);
+
+                textBlock.Append(word);
+            }
+
+            return textBlock;
         }
 
         public void Decode(BitArray bits, string fileName)

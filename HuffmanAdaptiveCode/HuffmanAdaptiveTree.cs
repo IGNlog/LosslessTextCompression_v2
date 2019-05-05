@@ -29,8 +29,10 @@ namespace HuffmanAdaptiveCode
         {
             Root = new Node { Number = 0 };
             _nyt = Root;
-            _nodes = new List<Node>();
-            _nodes.Add(Root);
+            _nodes = new List<Node>
+            {
+                Root
+            };
             _nextNum = 1;
         }
 
@@ -152,6 +154,16 @@ namespace HuffmanAdaptiveCode
             byte[] res = new byte[bitArray.Count / 8];
             bitArray.CopyTo(res, 0);
             File.WriteAllBytes(@fileNameEncode, res); ;
+        }
+
+        public List<bool> Encode(List<string> words)
+        {
+            List<bool> encodedSource = new List<bool>();
+            foreach (var word in words)
+            {
+                encodedSource.AddRange(Encode(word));
+            }
+            return encodedSource;
         }
 
         public BitArray EncodeFile(string fileName)

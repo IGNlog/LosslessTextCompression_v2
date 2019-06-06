@@ -322,7 +322,7 @@ namespace HuffmanAdaptiveCode
             Node nodeFirsIter;
             //вначале файла записана длина слова в байтах одним байтом
             //потом идёт само слово в байтовом виде
-            int index = 0;
+            int index = indexStart;
             //сначала определяем длину слова
             byte lenWord = BitOperations.GetLenWordFromBitArray(index, bits);
             index += 8;

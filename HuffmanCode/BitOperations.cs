@@ -107,7 +107,7 @@ namespace HuffmanCode
                 }
             }
             //Получаем строковое представление слова
-            return Encoding.Default.GetString(wordByte);
+            return Encoding.UTF8.GetString(wordByte);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace HuffmanCode
                 }
             }
             //Получаем строковое представление слова
-            return Encoding.Default.GetString(wordByte);
+            return Encoding.UTF8.GetString(wordByte);
         }
 
         public static StringBuilder GetStringBuilderFromBitArray(int index, byte len, BitArray bits)

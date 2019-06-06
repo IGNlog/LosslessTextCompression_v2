@@ -38,12 +38,15 @@
             this.openFileDialogTextSize = new System.Windows.Forms.OpenFileDialog();
             this.labelCountWordsInInput = new System.Windows.Forms.Label();
             this.textBoxCountWordsInInput = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.textsDevToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxInput
             // 
             this.textBoxInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxInput.Location = new System.Drawing.Point(293, 24);
+            this.textBoxInput.Location = new System.Drawing.Point(303, 60);
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(1042, 41);
             this.textBoxInput.TabIndex = 3;
@@ -51,7 +54,7 @@
             // buttonInput
             // 
             this.buttonInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonInput.Location = new System.Drawing.Point(51, 24);
+            this.buttonInput.Location = new System.Drawing.Point(61, 60);
             this.buttonInput.Name = "buttonInput";
             this.buttonInput.Size = new System.Drawing.Size(202, 41);
             this.buttonInput.TabIndex = 2;
@@ -63,7 +66,7 @@
             // 
             this.labelSizeText.AutoSize = true;
             this.labelSizeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSizeText.Location = new System.Drawing.Point(61, 171);
+            this.labelSizeText.Location = new System.Drawing.Point(71, 207);
             this.labelSizeText.Name = "labelSizeText";
             this.labelSizeText.Size = new System.Drawing.Size(492, 32);
             this.labelSizeText.TabIndex = 4;
@@ -72,7 +75,7 @@
             // buttonTextSize
             // 
             this.buttonTextSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonTextSize.Location = new System.Drawing.Point(1124, 161);
+            this.buttonTextSize.Location = new System.Drawing.Point(1134, 197);
             this.buttonTextSize.Name = "buttonTextSize";
             this.buttonTextSize.Size = new System.Drawing.Size(159, 42);
             this.buttonTextSize.TabIndex = 5;
@@ -117,7 +120,7 @@
             "5000",
             "50000",
             "500000"});
-            this.comboBoxTextSize.Location = new System.Drawing.Point(688, 164);
+            this.comboBoxTextSize.Location = new System.Drawing.Point(698, 200);
             this.comboBoxTextSize.Name = "comboBoxTextSize";
             this.comboBoxTextSize.Size = new System.Drawing.Size(229, 39);
             this.comboBoxTextSize.Sorted = true;
@@ -127,7 +130,7 @@
             // textBoxOutC
             // 
             this.textBoxOutC.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxOutC.Location = new System.Drawing.Point(293, 282);
+            this.textBoxOutC.Location = new System.Drawing.Point(303, 318);
             this.textBoxOutC.Name = "textBoxOutC";
             this.textBoxOutC.Size = new System.Drawing.Size(1042, 38);
             this.textBoxOutC.TabIndex = 9;
@@ -136,7 +139,7 @@
             // 
             this.labelOutС.AutoSize = true;
             this.labelOutС.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelOutС.Location = new System.Drawing.Point(71, 285);
+            this.labelOutС.Location = new System.Drawing.Point(81, 321);
             this.labelOutС.Name = "labelOutС";
             this.labelOutС.Size = new System.Drawing.Size(109, 32);
             this.labelOutС.TabIndex = 8;
@@ -146,7 +149,7 @@
             // 
             this.labelCountWordsInInput.AutoSize = true;
             this.labelCountWordsInInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCountWordsInInput.Location = new System.Drawing.Point(296, 92);
+            this.labelCountWordsInInput.Location = new System.Drawing.Point(306, 128);
             this.labelCountWordsInInput.Name = "labelCountWordsInInput";
             this.labelCountWordsInInput.Size = new System.Drawing.Size(483, 32);
             this.labelCountWordsInInput.TabIndex = 10;
@@ -155,11 +158,28 @@
             // textBoxCountWordsInInput
             // 
             this.textBoxCountWordsInInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxCountWordsInInput.Location = new System.Drawing.Point(817, 89);
+            this.textBoxCountWordsInInput.Location = new System.Drawing.Point(827, 125);
             this.textBoxCountWordsInInput.Name = "textBoxCountWordsInInput";
             this.textBoxCountWordsInInput.Size = new System.Drawing.Size(192, 38);
             this.textBoxCountWordsInInput.TabIndex = 11;
             this.textBoxCountWordsInInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.textsDevToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1407, 28);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // textsDevToolStripMenuItem
+            // 
+            this.textsDevToolStripMenuItem.Name = "textsDevToolStripMenuItem";
+            this.textsDevToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
+            this.textsDevToolStripMenuItem.Text = "Do texts";
             // 
             // Options
             // 
@@ -175,8 +195,12 @@
             this.Controls.Add(this.labelSizeText);
             this.Controls.Add(this.textBoxInput);
             this.Controls.Add(this.buttonInput);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Options";
             this.Text = "Options";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,5 +218,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogTextSize;
         private System.Windows.Forms.Label labelCountWordsInInput;
         private System.Windows.Forms.TextBox textBoxCountWordsInInput;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem textsDevToolStripMenuItem;
     }
 }

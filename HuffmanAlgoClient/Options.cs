@@ -44,11 +44,7 @@ namespace HuffmanAlgoClient
             int indexEnd = 0;
             while (indexEnd < text.Length)
             {
-                while (indexEnd < text.Length &&
-                        ((text[indexEnd] >= 'a' && text[indexEnd] <= 'z') ||
-                         (text[indexEnd] >= 'A' && text[indexEnd] <= 'Z')) ||
-                        ((text[indexEnd] >= 'а' && text[indexEnd] <= 'я') ||
-                         (text[indexEnd] >= 'А' && text[indexEnd] <= 'Я')))
+                while (indexEnd < text.Length && char.IsLetter(text[indexEnd]))
                 {
                     indexEnd++;
                 }
@@ -79,11 +75,7 @@ namespace HuffmanAlgoClient
             int indexEnd = 0;
             for (int i = 0; i < countWords; i++)
             {
-                while (indexEnd < textAll.Length &&
-                        ((textAll[indexEnd] >= 'a' && textAll[indexEnd] <= 'z') ||
-                         (textAll[indexEnd] >= 'A' && textAll[indexEnd] <= 'Z')) ||
-                        ((textAll[indexEnd] >= 'а' && textAll[indexEnd] <= 'я') ||
-                         (textAll[indexEnd] >= 'А' && textAll[indexEnd] <= 'Я')))
+                while (indexEnd < textAll.Length && char.IsLetter(textAll[indexEnd]))
                 {
                     indexEnd++;
                 }

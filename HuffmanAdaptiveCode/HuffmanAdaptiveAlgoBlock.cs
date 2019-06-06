@@ -216,7 +216,7 @@ namespace HuffmanAdaptiveCode
         /// <param name="fileNameEncode">Имя файла закодированного текста</param>
         /// <param name="sizeBlock">Размер блока</param>
         /// <param name="fileNameMetrics">Имя файла для записи растояния между блоками</param>
-        public void EncodeBlockWithMetrics(string fileNameSource, string fileNameEncode, int sizeBlock, string fileNameMetrics)
+        public List<List<double>> EncodeBlockWithMetrics(string fileNameSource, string fileNameEncode, int sizeBlock, string fileNameMetrics)
         {
             List<double> distanceEuclide = new List<double>();
             List<double> distanceChebyshev = new List<double>();
@@ -226,7 +226,7 @@ namespace HuffmanAdaptiveCode
                out distanceEuclide, out distanceChebyshev, out distanceCityBlock);
             //Дописываем приписок в зависимости от кратности 8 полученного списка битов
             //Это нужно для того чтобы знать конец нашей последовательности битов 
-            //и была возможность записать эту последовательность в файл, т.к. минимальный объём инфорбации,
+            //и была возможность записать эту последовательность в файл, т.к. минимальный объём инфорvации,
             //что мы можем записать в файл - это байт
             if (bitsArr.Count % 8 == 0)
             {
@@ -254,6 +254,7 @@ namespace HuffmanAdaptiveCode
                     distanceChebyshev[i].ToString() + " " + distanceCityBlock[i].ToString());
             }
             streamWriter.Close();
+            return new List<List<double>> { distanceEuclide, distanceChebyshev, distanceCityBlock };
         }
 
         /// <summary>

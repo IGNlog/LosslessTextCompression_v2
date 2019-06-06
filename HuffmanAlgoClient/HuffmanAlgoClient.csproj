@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlockExperiments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BlockExperiments.Designer.cs">
+      <DependentUpon>BlockExperiments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DoTexts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DoTexts.Designer.cs">
+      <DependentUpon>DoTexts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +72,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BlockExperiments.resx">
+      <DependentUpon>BlockExperiments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DoTexts.resx">
+      <DependentUpon>DoTexts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

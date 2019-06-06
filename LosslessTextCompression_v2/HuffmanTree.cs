@@ -212,7 +212,7 @@ namespace LosslessTextCompression_v2
                 }
             }
             //Получаем строковое представление слова
-            return Encoding.Default.GetString(wordByte);
+            return Encoding.UTF8.GetString(wordByte);
         }
 
         public int GetIntFromBitArray(int index, BitArray bits)
@@ -309,10 +309,7 @@ namespace LosslessTextCompression_v2
                 while (indexEnd < line.Length)
                 {
                     while (indexEnd < line.Length &&
-                        ((line[indexEnd] >= 'a' && line[indexEnd] <= 'z') ||
-                         (line[indexEnd] >= 'A' && line[indexEnd] <= 'Z')) ||
-                        ((line[indexEnd] >= 'а' && line[indexEnd] <= 'я') ||
-                         (line[indexEnd] >= 'А' && line[indexEnd] <= 'Я')))
+                        char.IsLetter(line[indexEnd]))
                     {
                         indexEnd++;
                     }
